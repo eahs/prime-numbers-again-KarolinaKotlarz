@@ -5,6 +5,8 @@ namespace PrimeNumbersAgain
 {
     class Program
     {
+        private static int[] primes;
+        
         static void Main(string[] args)
         {
             int n, prime;
@@ -16,16 +18,56 @@ namespace PrimeNumbersAgain
             timer.Start();
             prime = FindNthPrime(n);
             timer.Stop();
-            
-            
-            Console.WriteLine($"\nToo easy.. {prime} is the nth prime when n is {n}. I found that answer in {timer.Elapsed.Seconds} seconds.");
 
+            Console.WriteLine($"\nToo easy.. {prime} is the nth prime when n is {n}. I found that answer in {timer.Elapsed.Seconds} seconds.");
+            
             EvaluatePassingTime(timer.Elapsed.Seconds);
         }
 
+        // Finds the nth prime number
         static int FindNthPrime(int n)
         {
-            return 0;
+            primes = new int[n];
+            int i = 0;
+            int number = 1;
+            
+            while (i < n)
+            {
+                if (IsPrime(number))
+                {
+                    primes[i] = number;
+                    i++;
+                }
+                number += 2;
+            }
+            
+            return primes[n - 1];
+        }
+        
+        // Checks if number is a prime number
+        private static bool IsPrime(int number)
+        {
+            // Tries to divide it by each of the already known primes...
+            foreach (int prime in primes)
+            {
+                // ...up to the square root of that number
+                if (prime > Math.Sqrt(number))
+                    break;
+                if (prime == 0)
+                {
+                    break;
+                }
+                if (prime == 1)
+                {
+                    continue;
+                }
+                if (number % prime == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+            
         }
 
         static int GetNumber()
