@@ -27,9 +27,9 @@ namespace PrimeNumbersAgain
         // Finds the nth prime number
         static int FindNthPrime(int n)
         {
-            primes = new int[n];
-            int i = 0;
-            int number = 1;
+            primes = new int[n]; // Create new array of length n
+            int i = 0; // Create counter for the while loop
+            int number = 1; // First number to check is 1
             
             while (i < n)
             {
